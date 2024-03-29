@@ -6,7 +6,7 @@ metadata:
 spec:
   destination:
     namespace: argocd
-    name: https://kubernetes.default.svc
+    name: in-cluster
   project: default
   source:
     repoURL: git@github.com:heschlie/gitops.git
