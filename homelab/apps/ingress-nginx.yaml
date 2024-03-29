@@ -1,14 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: external-dns
+  name: ingress-nginx
   namespace: argocd
 spec:
   destination:
-    namespace: external-dns
+    namespace: ingress-nginx
     name: in-cluster
   project: default
   source:
     repoURL: git@github.com:heschlie/gitops.git
-    path: homelab/k8s/external-dns
+    path: homelab/k8s/ingress-nginx
     targetRevision: main
