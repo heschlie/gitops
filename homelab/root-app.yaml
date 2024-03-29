@@ -9,7 +9,7 @@ spec:
     name: in-cluster
   project: default
   source:
-    repoURL: https://github.com/heschlie/gitops
+    repoURL: git@github.com:heschlie/gitops.git
     path: homelab/apps
     targetRevision: main
     kustomize:
