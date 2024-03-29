@@ -12,4 +12,3 @@ spec:
     repoURL: git@github.com:heschlie/gitops.git
     path: homelab/k8s/ingress-nginx
     targetRevision: main
-    kustomize:

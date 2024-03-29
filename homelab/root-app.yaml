@@ -12,4 +12,3 @@ spec:
     repoURL: git@github.com:heschlie/gitops.git
     path: homelab/apps
     targetRevision: main
-    kustomize:
