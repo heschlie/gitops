@@ -6,6 +6,8 @@ resources:
 
 patches:
   - path: service-lb-patch.yaml
+  - path: target-control-node.yaml
+  - path: configmap-patch.yaml
   - target:
       group: apps
       version: v1

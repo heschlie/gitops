@@ -3,3 +3,4 @@ kind: Kustomization
 
 resources:
   - https://github.com/prometheus-operator/kube-prometheus/?ref=release-0.13
+  - ingress.yaml
