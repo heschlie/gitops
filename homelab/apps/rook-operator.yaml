@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rook
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-2"
+spec:
+  destination:
+    namespace: rook-ceph
+    name: in-cluster
+  project: default
+  source:
+    repoURL: git@github.com:heschlie/gitops.git
+    path: homelab/k8s/rook/operator
+    targetRevision: main
