@@ -5,3 +5,4 @@ resources:
   - external-dns.yaml
   - ingress-nginx.yaml
   - rook-operator.yaml
+  - rook-cluster.yaml
