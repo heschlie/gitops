@@ -1,3 +1,4 @@
+namespaceOverride: monitoring
 grafana:
   defaultDashboardsTimezone: US/Pacific
   ingress:
