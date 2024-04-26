@@ -4,6 +4,9 @@ metadata:
   name: kube-prometheus
   namespace: argocd
 spec:
+  syncPolicy:
+    syncOptions:
+      - ServerSideApply=true
   destination:
     namespace: monitoring
     name: in-cluster
