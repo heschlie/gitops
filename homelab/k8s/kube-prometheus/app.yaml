@@ -15,6 +15,7 @@ spec:
     chart: kube-prometheus-stack
     repoURL: https://prometheus-community.github.io/helm-charts
     targetRevision: 58.2.2
+    path: homelab/k8s/kube-prometheus
     helm:
       releaseName: kube-prometheus
       valueFiles:
