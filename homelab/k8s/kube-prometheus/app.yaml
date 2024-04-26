@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kube-prometheus
+  namespace: argocd
+spec:
+  destination:
+    namespace: kube-prometheus
+    name: in-cluster
+  project: default
+  source:
+    chart: kube-prometheus-stack
+    repoURL: https://prometheus-community.github.io/helm-charts
+    targetRevision: 58.2.2
+    helm:
+      releaseName: kube-prometheus
+      valueFiles:
+        - values.yaml
