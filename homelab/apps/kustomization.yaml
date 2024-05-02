@@ -7,3 +7,4 @@ resources:
   - rook-operator.yaml
   - rook-cluster.yaml
   - prometheus.yaml
+  - metrics-server.yaml
