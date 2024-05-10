@@ -1,0 +1,34 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: arr
+
+images:
+  - name: linuxserver/sabnzbd
+    newTag: 4.3.1
+  - name: linuxserver/sonarr
+    newTag: 4.0.4
+  - name: linuxserver/radarr
+    newTag: 5.4.6
+  - name: linuxserver/bazarr
+    newTag: 1.4.2
+  - name: linuxserver/lidarr
+    newTag: 2.2.5
+  - name: linuxserver/jackett
+    newTag: 0.21.2565
+  - name: haugene/transmission-openvpn
+    newTag: 5.3.1
+  - name: golift/notifiarr
+    newTag: 0.7.0
+
+resources:
+  - namespace.yaml
+  - sabnzbd.yaml
+  - transmission.yaml
+  - jackett.yaml
+  - notifiarr.yaml
+  - radarr.yaml
+  - sonarr.yaml
+  - anime.yaml
+  - bazarr.yaml
+  - bazarr-anime.yaml
+  - lidarr.yaml

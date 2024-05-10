@@ -1,0 +1,104 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transmission
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: transmission
+  template:
+    metadata:
+      labels:
+        app: transmission
+    spec:
+      containers:
+        - name: transmission
+          image: haugene/transmission-openvpn
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
+          ports:
+            - containerPort: 9091
+              name: http
+          livenessProbe:
+            exec:
+              command: [ "ping", "-I", "tun0", "-c", "1", "google.com" ]
+            failureThreshold: 3
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: TZ
+              value: America/Los_Angeles
+            - name: CREATE_TUN_DEVICE
+              value: "true"
+            - name: LOCAL_NETWORK
+              value: "192.168.0.0/16, 10.0.0.0/16, 10.96.0.0/12"
+            - name: TRANSMISSION_RPC_WHITELIST_ENABLED
+              value: "false"
+            - name: OPENVPN_PROVIDER
+              value: "NORDVPN"
+            - name: TRANSMISSION_DOWNLOAD_DIR
+              value: /starr/torrent/completed
+            - name: TRANSMISSION_INCOMPLETE_DIR
+              value: /starr/torrent/incomplete
+            - name: TRANSMISSION_WATCH_DIR
+              value: /starr/torrent/watch
+            - name: OPENVPN_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: username
+                  name: nord-credentials
+            - name: OPENVPN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: nord-credentials
+          volumeMounts:
+            - mountPath: /starr/torrent
+              name: downloads
+      volumes:
+        - name: downloads
+          nfs:
+            path: /opt/tank1/starr/torrent
+            server: stormwind.lan
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: transmission
+spec:
+  selector:
+    app: transmission
+  ports:
+    - port: 80
+      name: http
+      targetPort: http
+
+---
+
+kind: Ingress
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: transmission
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: transmission.k8s
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: transmission
+                port:
+                  name: http

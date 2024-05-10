@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: notifiarr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: notifiarr
+  template:
+    metadata:
+      labels:
+        app: notifiarr
+    spec:
+      containers:
+        - name: notifiarr
+          image: golift/notifiarr
+          env:
+            - name: DN_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: api-key
+                  name: notifiarr
+          ports:
+            - containerPort: 5454
+              name: http
+          volumeMounts:
+            - mountPath: /config
+              name: notifiarr-config
+  serviceName: notifiarr
+  volumeClaimTemplates:
+    - metadata:
+        name: notifiarr-config
+      spec:
+        accessModes:
+          - "ReadWriteOnce"
+        storageClassName: rook-ceph-block
+        resources:
+          requests:
+            storage: 1Gi
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: notifiarr
+spec:
+  selector:
+    app: notifiarr
+  ports:
+    - port: 80
+      name: http
+      targetPort: http
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: notifiarr
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: notifiarr.k8s
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: notifiarr
+                port:
+                  name: http

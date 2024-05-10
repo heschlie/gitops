@@ -1,0 +1,90 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: bazarr-anime-config
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: rook-ceph-block
+  volumeMode: Filesystem
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bazarr-anime
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: bazarr-anime
+  template:
+    metadata:
+      labels:
+        app: bazarr-anime
+    spec:
+      containers:
+        - name: bazarr-anime
+          image: linuxserver/bazarr
+          ports:
+            - containerPort: 6767
+              name: http
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: TZ
+              value: America/Los_Angeles
+          volumeMounts:
+            - mountPath: /config
+              name: config
+            - mountPath: /starr
+              name: downloads
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: bazarr-anime-config
+        - name: downloads
+          nfs:
+            path: /opt/tank1/starr
+            server: stormwind.lan
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: bazarr-anime
+spec:
+  selector:
+    app: bazarr-anime
+  ports:
+    - port: 80
+      name: http
+      targetPort: http
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: bazarr-anime
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: bazarr-anime.k8s
+      http:
+        paths:
+          - backend:
+              service:
+                name: bazarr-anime
+                port:
+                  name: http
+            pathType: Prefix
+            path: /
