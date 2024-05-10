@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: starr-apps
+  namespace: argocd
+spec:
+  destination:
+    namespace: arr
+    name: in-cluster
+  project: default
+  source:
+    repoURL: git@github.com:heschlie/gitops.git
+    path: homelab/k8s/arr-stack
+    targetRevision: main
