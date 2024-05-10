@@ -8,3 +8,4 @@ resources:
   - rook-cluster.yaml
   - prometheus.yaml
   - metrics-server.yaml
+  - starr-apps.yaml
