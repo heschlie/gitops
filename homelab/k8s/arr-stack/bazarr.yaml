@@ -54,7 +54,7 @@ spec:
         - name: downloads
           nfs:
             path: /opt/tank1/starr
-            server: stormwind.lan
+            server: nfs.k8s
 ---
 
 apiVersion: v1

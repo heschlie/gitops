@@ -67,7 +67,7 @@ spec:
         - name: downloads
           nfs:
             path: /opt/tank1/starr/torrent
-            server: stormwind.lan
+            server: nfs.k8s
 
 ---
 
