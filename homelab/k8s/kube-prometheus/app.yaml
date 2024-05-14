@@ -58,4 +58,4 @@ spec:
                 - action: replace
                   sourceLabels:
                     - __meta_kubernetes_node_name
-                  targetLabel: node
+                  targetLabel: instance
