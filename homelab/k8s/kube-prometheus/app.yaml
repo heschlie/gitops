@@ -20,6 +20,7 @@ spec:
       releaseName: kube-prometheus
       values: |
         namespaceOverride: monitoring
+        
         grafana:
           defaultDashboardsTimezone: US/Pacific
           ingress:
@@ -36,6 +37,19 @@ spec:
             finalizers:
               - kubernetes.io/pvc-protection
         prometheus:
+          prometheusSpec:
+            podMonitorNamespaceSelector:
+              any: true
+            podMonitorSelector: {}
+            podMonitorSelectorNilUsesHelmValues: false
+            ruleNamespaceSelector:
+              any: true
+            ruleSelector: {}
+            ruleSelectorNilUsesHelmValues: false
+            serviceMonitorNamespaceSelector:
+              any: true
+            serviceMonitorSelector: {}
+            serviceMonitorSelectorNilUsesHelmValues: false
           ingress:
             enabled: true
             ingressClassName: nginx
