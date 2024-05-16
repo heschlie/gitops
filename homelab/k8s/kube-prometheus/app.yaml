@@ -38,17 +38,6 @@ spec:
               - kubernetes.io/pvc-protection
         prometheus:
           prometheusSpec:
-            podMonitorNamespaceSelector:
-              any: true
-            podMonitorSelector: {}
-            podMonitorSelectorNilUsesHelmValues: false
-            ruleNamespaceSelector:
-              any: true
-            ruleSelector: {}
-            ruleSelectorNilUsesHelmValues: false
-            serviceMonitorNamespaceSelector:
-              any: true
-            serviceMonitorSelector: {}
             serviceMonitorSelectorNilUsesHelmValues: false
           ingress:
             enabled: true
