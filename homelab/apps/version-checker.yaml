@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: version-checker
+  namespace: argocd
+spec:
+  destination:
+    namespace: version-checker
+    name: in-cluster
+  project: default
+  source:
+    repoURL: git@github.com:heschlie/gitops.git
+    path: homelab/k8s/version-checker
+    targetRevision: main

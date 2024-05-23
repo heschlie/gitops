@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: navidrome
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: music.heschlie.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: navidrome
+                port:
+                  name: http
+            pathType: Prefix
+            path: /
+  tls:
+    - hosts:
+        - music.heschlie.com
+      secretName: navidrome-tls

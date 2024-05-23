@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: navidrome-data
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: rook-ceph-block
+  volumeMode: Filesystem
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: navidrome
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: navidrome
+  template:
+    metadata:
+      labels:
+        app: navidrome
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+        - name: navidrome
+          image: deluan/navidrome:0.52.0
+          ports:
+            - containerPort: 4533
+              name: http
+          env:
+            - name: ND_SCANSCHEDULE
+              value: "@every 15m"
+            - name: ND_LOGLEVEL
+              value: info
+            - name: ND_SESSIONTIMEOUT
+              value: 24h
+            - name: ND_BASEURL
+              value: ""
+          volumeMounts:
+            - mountPath: /music
+              name: music
+            - mountPath: /data
+              name: data
+      volumes:
+        - name: music
+          nfs:
+            path: /opt/tank1/starr/media/music
+            server: nfs.k8s
+        - name: data
+          persistentVolumeClaim:
+            claimName: navidrome-data

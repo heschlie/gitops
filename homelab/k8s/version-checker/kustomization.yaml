@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: version-checker
+
+images:
+  - name: quay.io/jetstack/version-checker
+    newTag: v0.5.5
+
+resources:
+  - namespace.yaml
+  - service-account.yaml
+  - deployment.yaml
+  - service.yaml
+  - service-monitor.yaml
