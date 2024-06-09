@@ -4,21 +4,21 @@ namespace: arr
 
 images:
   - name: linuxserver/sabnzbd
-    newTag: 4.3.1
+    newTag: 4.3.2
   - name: linuxserver/sonarr
-    newTag: 4.0.4
+    newTag: 4.0.5
   - name: linuxserver/radarr
-    newTag: 5.4.6
+    newTag: 5.6.0
   - name: linuxserver/bazarr
-    newTag: 1.4.2
+    newTag: 1.4.3
   - name: linuxserver/lidarr
-    newTag: 2.2.5
+    newTag: 2.3.3
   - name: linuxserver/jackett
-    newTag: 0.21.2565
+    newTag: 0.22.84
   - name: haugene/transmission-openvpn
     newTag: 5.3.1
   - name: golift/notifiarr
-    newTag: 0.7.0
+    newTag: 0.7.3
 
 resources:
   - namespace.yaml
