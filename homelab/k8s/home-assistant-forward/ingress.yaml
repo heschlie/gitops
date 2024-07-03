@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: homeassistant
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: ha.heschlie.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: homeassistant
+                port:
+                  name: app
+  tls:
+    - hosts:
+        - ha.heschlie.com
+      secretName: homeassistant-tls
