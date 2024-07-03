@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pictrs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pictrs
+  template:
+    metadata:
+      labels:
+        app: pictrs
+    spec:
+      securityContext:
+        runAsUser: 991
+        runAsGroup: 991
+      containers:
+        - name: pictrs
+          image: asonix/pictrs:0.4.0
+          ports:
+            - containerPort: 8080
+              name: http
+          env:
+            - name: PICTRS__API_KEY
+              value: API_KEY
+          volumeMounts:
+            - mountPath: /mnt
+              name: pictrs
+      volumes:
+        - name: pictrs
+          nfs:
+            path: /opt/tank1/pictrs
+            server: nfs.k8s
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: pictrs
+spec:
+  selector:
+    app: pictrs
+  ports:
+    - port: 8080
+      name: http
+      targetPort: http

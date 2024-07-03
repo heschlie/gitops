@@ -1,0 +1,122 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: nginx
+data:
+  nginx.conf: |
+    worker_processes auto;
+    events {
+        worker_connections 1024;
+    }
+    
+    http {
+        resolver 10.96.0.10 valid=5s;
+        map "$request_method:$http_accept" $proxpass {
+            # If no explicit matches exists below, send traffic to lemmy-ui
+            default "http://lemmy-ui.lemmy.svc.cluster.local:1234";
+    
+            # GET/HEAD requests that accepts ActivityPub or Linked Data JSON should go to lemmy.
+            #
+            # These requests are used by Mastodon and other fediverse instances to look up profile information,
+            # discover site information and so on.
+            "~^(?:GET|HEAD):.*?application\/(?:activity|ld)\+json" "http://lemmy.lemmy.svc.cluster.local:8536";
+    
+            # All non-GET/HEAD requests should go to lemmy
+            #
+            # Rather than calling out POST, PUT, DELETE, PATCH, CONNECT and all the verbs manually
+            # we simply negate the GET|HEAD pattern from above and accept all possibly $http_accept values
+            "~^(?!(GET|HEAD)).*:" "http://lemmy.lemmy.svc.cluster.local:8536";
+        }
+    
+        server {
+            set $lemmy_ui "lemmy-ui.lemmy.svc.cluster.local:1234";
+            set $lemmy "lemmy.lemmy.svc.cluster.local:8536";
+            # this is the port inside docker, not the public one yet
+            listen 80;
+    
+            # change if needed, this is facing the public web
+            server_name lemmy.schlunker.com;
+            server_tokens off;
+    
+            # Upload limit, relevant for pictrs
+            client_max_body_size 20M;
+    
+            # Send actual client IP upstream
+            proxy_set_header Host $http_host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+    
+            # frontend general requests
+            location / {
+                proxy_pass $proxpass;
+                proxy_http_version 1.1;
+                rewrite ^(.+)/+$ $1 permanent;
+            }
+    
+            # security.txt
+            location = /.well-known/security.txt {
+                proxy_pass "http://$lemmy_ui";
+                proxy_http_version 1.1;
+            }
+    
+            # backend
+            location ~ ^/(api|pictrs|feeds|nodeinfo|.well-known|version|sitemap.xml) {
+                proxy_pass "http://$lemmy";
+                proxy_http_version 1.1;
+    
+                # Send actual client IP upstream
+                proxy_set_header Host $http_host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+            }
+        }
+    }
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.27.0-alpine
+          ports:
+            - containerPort: 80
+              name: http
+          volumeMounts:
+            - name: config
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+      volumes:
+        - name: config
+          configMap:
+            name: nginx
+            items:
+              - key: nginx.conf
+                path: nginx.conf
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+  selector:
+    app: nginx

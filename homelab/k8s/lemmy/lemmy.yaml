@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lemmy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lemmy
+  template:
+    metadata:
+      labels:
+        app: lemmy
+    spec:
+      containers:
+        - name: lemmy
+          image: dessalines/lemmy:0.19.5
+          ports:
+            - containerPort: 8536
+              name: http
+          env:
+            - name: RUST_LOG
+              value: "debug"
+          volumeMounts:
+            - mountPath: /config/
+              name: config
+      volumes:
+        - name: config
+          secret:
+            secretName: backend-config
+            items:
+              - key: config
+                path: config.hjson
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: lemmy
+spec:
+  selector:
+    app: lemmy
+  ports:
+    - port: 8536
+      name: http
+      targetPort: http

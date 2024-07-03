@@ -1,0 +1,11 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: lemmy
+
+resources:
+  - nginx.yaml
+  - lemmy-custom-headers.yaml
+  - pictrs.yaml
+  - lemmy.yaml
+  - lemmy-ui.yaml
+  - ingress.yaml
