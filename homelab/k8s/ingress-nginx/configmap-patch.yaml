@@ -6,3 +6,4 @@ metadata:
 data:
   enable-real-ip: "true"
   forwarded-for-header: proxy_protocol
+  allow-snippet-annotations: "true"

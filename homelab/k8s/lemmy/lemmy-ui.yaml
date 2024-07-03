@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: lemmy-ui
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: lemmy-ui
@@ -12,6 +12,13 @@ spec:
       labels:
         app: lemmy-ui
     spec:
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: "kubernetes.io/hostname"
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app: lemmy-ui
       containers:
         - name: lemmy-ui
           image: dessalines/lemmy-ui:0.19.5
