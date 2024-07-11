@@ -4,6 +4,9 @@ metadata:
   name: cloudnativepg
   namespace: argocd
 spec:
+  syncPolicy:
+    syncOptions:
+      - ServerSideApply=true
   destination:
     namespace: cnpg-system
     name: in-cluster
