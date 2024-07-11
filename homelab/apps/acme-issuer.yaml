@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: acme-issuer
+  namespace: argocd
+spec:
+  destination:
+    namespace: cert-manager
+    name: in-cluster
+  project: default
+  source:
+    repoURL: git@github.com:heschlie/gitops.git
+    path: homelab/k8s/acme-issuer
+    targetRevision: main

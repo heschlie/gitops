@@ -2,11 +2,18 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
+  - acme-issuer.yaml
+  - cert-manager.yaml
+  - cloudnativepg.yaml
   - external-dns.yaml
+  - home-assistant-forward.yaml
   - ingress-nginx.yaml
-  - rook-operator.yaml
-  - rook-cluster.yaml
-  - prometheus.yaml
+  - jellyfin-forward.yaml
+  - lemmy-database.yaml
+  - lemmy.yaml
   - metrics-server.yaml
-  - starr-apps.yaml
   - navidrome.yaml
+  - prometheus.yaml
+  - rook-cluster.yaml
+  - rook-operator.yaml
+  - starr-apps.yaml
