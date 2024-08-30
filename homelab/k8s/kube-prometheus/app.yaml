@@ -43,18 +43,18 @@ spec:
             podMonitorSelectorNilUsesHelmValues: false
             probeSelectorNilUsesHelmValues: false
             scrapeConfigSelectorNilUsesHelmValues: false
+            storageSpec:
+              volumeClaimTemplate:
+                spec:
+                  storageClassName: rook-ceph-block
+                  resources:
+                    requests:
+                      storage: 40Gi
           ingress:
             enabled: true
             ingressClassName: nginx
             hosts:
               - prometheus.k8s
-          storageSpec:
-            volumeClaimTemplate:
-              spec:
-                storageClassName: rook-ceph-block
-                resources:
-                  requests:
-                    storage: 40Gi
         cleanPrometheusOperatorObjectNames: true
         prometheus-node-exporter:
           prometheus:
