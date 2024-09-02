@@ -3,6 +3,8 @@ kind: Kustomization
 
 resources:
   - https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.10.0/deploy/static/provider/cloud/deploy.yaml
+  - service-metrics.yaml
+  - service-monitor.yaml
 
 patches:
   - path: service-lb-patch.yaml

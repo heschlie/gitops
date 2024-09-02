@@ -1,3 +1,9 @@
 - op: add
   path: "/spec/template/spec/containers/0/args/-"
   value: --enable-ssl-passthrough
+- op: add
+  path: "/spec/template/spec/containers/0/ports/-"
+  value:
+    name: metrics
+    containerPort: 10254
+    protocol: TCP
