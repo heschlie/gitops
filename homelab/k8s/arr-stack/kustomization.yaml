@@ -32,3 +32,11 @@ resources:
   - bazarr.yaml
   - bazarr-anime.yaml
   - lidarr.yaml
+
+patches:
+  - target:
+      kind: Ingress
+    patch: |-
+      - op: add
+        path: "/metadata/annotations/nginx.ingress.kubernetes.io~1whitelist-source-range"
+        value: "192.168.0.0/16"
