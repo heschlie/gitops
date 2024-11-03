@@ -13,13 +13,13 @@ helmCharts:
     repo: https://charts.jetstack.io
     version: v1.15.1
     valuesInline:
-      deploymentAnnotations:
+      podAnnotations:
         match-regex.version-checker.io/cert-manager-controller: 'v(\d+)\.(\d+)\.(\d+)'
       cainjector:
-        deploymentAnnotations:
+        podAnnotations:
           match-regex.version-checker.io/cert-manager-cainjector: 'v(\d+)\.(\d+)\.(\d+)'
       webhook:
-        deploymentAnnotations:
+        podAnnotations:
           match-regex.version-checker.io/cert-manager-webhook: 'v(\d+)\.(\d+)\.(\d+)'
       crds:
         enabled: true
