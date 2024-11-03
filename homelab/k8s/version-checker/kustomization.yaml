@@ -4,7 +4,7 @@ namespace: version-checker
 
 images:
   - name: quay.io/jetstack/version-checker
-    newTag: v0.5.5
+    newTag: v0.8.3
 
 resources:
   - namespace.yaml
