@@ -22,6 +22,7 @@ spec:
         namespaceOverride: monitoring
         
         grafana:
+          replicas: 1
           podAnnotations:
             match-regex.version-checker.io/grafana: '(\d+)\.(\d+)\.(\d+)'
           defaultDashboardsTimezone: US/Pacific
