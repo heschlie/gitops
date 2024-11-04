@@ -23,6 +23,8 @@ spec:
         
         grafana:
           replicas: 1
+          deploymentStrategy:
+            type: Recreate
           podAnnotations:
             match-regex.version-checker.io/grafana: '(\d+)\.(\d+)\.(\d+)'
           defaultDashboardsTimezone: US/Pacific
