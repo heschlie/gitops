@@ -24,6 +24,7 @@ spec:
         grafana:
           replicas: 1
           deploymentStrategy:
+            rollingUpdate: null
             type: Recreate
           podAnnotations:
             match-regex.version-checker.io/grafana: '(\d+)\.(\d+)\.(\d+)'
