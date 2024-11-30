@@ -6,7 +6,7 @@ images:
   - name: linuxserver/sabnzbd
     newTag: 4.3.3
   - name: linuxserver/sonarr
-    newTag: 4.0.10
+    newTag: 4.0.11
   - name: linuxserver/radarr
     newTag: 5.14.0
   - name: linuxserver/bazarr
