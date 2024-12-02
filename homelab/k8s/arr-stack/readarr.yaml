@@ -1,0 +1,91 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: readarr-config
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: rook-ceph-block
+  volumeMode: Filesystem
+
+---
+
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: readarr
+  spec:
+    replicas: 1
+    strategy:
+      type: Recreate
+    selector:
+      matchLabels:
+        app: readarr
+    template:
+      metadata:
+        labels:
+          app: readarr
+      spec:
+        containers:
+          - name: readarr
+            image: linuxserver/readarr
+            ports:
+              - containerPort: 8787
+                name: http
+            env:
+              - name: PUID
+                value: "1000"
+              - name: PGID
+                value: "1000"
+              - name: TZ
+                value: America/Los_Angeles
+            volumeMounts:
+              - mountPath: /config
+                name: config
+              - mountPath: /starr
+                name: downloads
+        volumes:
+          - name: config
+            persistentVolumeClaim:
+              claimName: sonarr-config
+          - name: downloads
+            nfs:
+              path: /opt/tank1/starr
+              server: nfs.k8s
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: readarr
+spec:
+  selector:
+    app: readarr
+  ports:
+    - port: 80
+      name: http
+      targetPort: http
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: readarr
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: readarr.k8s
+      http:
+        paths:
+          - backend:
+              service:
+                name: readarr
+                port:
+                  name: http
+            pathType: Prefix
+            path: /
