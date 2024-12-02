@@ -50,7 +50,7 @@ spec:
         volumes:
           - name: config
             persistentVolumeClaim:
-              claimName: sonarr-config
+              claimName: readarr-config
           - name: downloads
             nfs:
               path: /opt/tank1/starr
