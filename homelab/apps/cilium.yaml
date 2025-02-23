@@ -23,4 +23,4 @@ spec:
         routingMode: tunnel
         tunnelProtocol: vxlan
         cni:
-          exclusive: "false"
+          exclusive: false
