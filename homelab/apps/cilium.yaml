@@ -11,12 +11,11 @@ spec:
   source:
     repoURL: https://helm.cilium.io/
     chart: cilium
-    targetRevision: 1.16.7
+    targetRevision: 1.17.1
     helm:
       releaseName: cilium
       valuesObject:
-        upgradeCompatibility: "1.15"
-        cluster:                                                                                                                                                   
+        cluster:
           name: kubernetes
         operator:
           replicas: 1
