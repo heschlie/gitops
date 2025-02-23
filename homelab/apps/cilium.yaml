@@ -21,3 +21,5 @@ spec:
           replicas: 1
         routingMode: tunnel
         tunnelProtocol: vxlan
+        cni:
+          exclusive: "false"
