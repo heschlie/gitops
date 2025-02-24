@@ -3,6 +3,7 @@ kind: Kustomization
 
 resources:
   - cilium.yaml
+  - istio.yaml
   - acme-issuer.yaml
   - argocd.yaml
   - cert-manager.yaml
