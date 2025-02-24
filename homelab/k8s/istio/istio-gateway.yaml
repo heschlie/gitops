@@ -6,7 +6,7 @@ metadata:
 spec:
   destination:
     namespace: istio-system
-    name: istio-ingress
+    name: in-cluster
   project: default
   source:
     repoURL: https://istio-release.storage.googleapis.com/charts

@@ -8,7 +8,7 @@ metadata:
 spec:
   destination:
     namespace: istio-system
-    name: istio-base
+    name: in-cluster
   project: default
   source:
     repoURL: https://istio-release.storage.googleapis.com/charts

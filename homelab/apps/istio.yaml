@@ -6,7 +6,7 @@ metadata:
 spec:
   destination:
     namespace: istio-system
-    name: istio
+    name: in-cluster
   project: default
   source:
     repoURL: git@github.com:heschlie/gitops.git
