@@ -4,4 +4,4 @@ metadata:
   name: ingress-nginx-controller
   namespace: ingress-nginx
 data:
-  enable-real-ip: "true"
+  allow-snippet-annotations: 'true'
