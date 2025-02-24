@@ -10,7 +10,7 @@ spec:
   project: default
   source:
     repoURL: https://istio-release.storage.googleapis.com/charts
-    chart: istio/gateway
+    chart: gateway
     targetRevision: 1.24.3
     helm:
       releaseName: istio-ingress
