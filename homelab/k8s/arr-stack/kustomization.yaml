@@ -33,6 +33,7 @@ resources:
   - bazarr-anime.yaml
   - lidarr.yaml
   - readarr.yaml
+  - audiobooks.yaml
 
 patches:
   - target:
