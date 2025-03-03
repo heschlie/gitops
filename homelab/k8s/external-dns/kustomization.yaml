@@ -4,8 +4,8 @@ namespace: external-dns
 
 images:
   - name: registry.k8s.io/external-dns/external-dns
-    newName: tjouve/external-dns
-    newTag: 6a4d8474
+    newName: heschlie/external-dns
+    newTag: v0.15.1-278-g27c24c0b
 
 resources:
   - namespace.yaml
