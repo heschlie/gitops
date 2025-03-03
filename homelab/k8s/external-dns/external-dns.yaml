@@ -70,6 +70,6 @@ spec:
             - --provider=pihole
             # Change this to the actual address of your Pi-hole web server
             - --pihole-server=https://pi.hole
-            - --pihole-tls-skip-verify
+            - --pihole-tls-skip-verify=true
       securityContext:
         fsGroup: 65534 # For ExternalDNS to be able to read Kubernetes token files
