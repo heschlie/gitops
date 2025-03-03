@@ -69,8 +69,7 @@ spec:
             - --policy=upsert-only
             - --provider=pihole
             # Change this to the actual address of your Pi-hole web server
-            - --pihole-server=https://pi.hole
-            - --pihole-tls-skip-verify
+            - --pihole-server=http://pi.hole:8080
           env:
             - name: EXTERNAL_DNS_PIHOLE_API_VERSION
               value: "6"
