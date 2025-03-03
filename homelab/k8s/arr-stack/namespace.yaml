@@ -2,5 +2,3 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: arr
-  labels:
-    istio-injection: enabled
