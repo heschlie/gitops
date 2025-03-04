@@ -17,9 +17,9 @@ nextcloud:
       <?php
       $CONFIG = array (
         'check_data_directory_permissions' => false,
-        ‘overwrite.cli.url’ => ‘https://cloud.heschlie.com’,
-        ‘overwriteprotocol’ => ‘https’,
-        ‘overwritehost’ => ‘cloud.heschlie.com’,
+        'overwrite.cli.url' => 'https://cloud.heschlie.com',
+        'overwriteprotocol' => 'https',
+        'overwritehost' => 'cloud.heschlie.com',
       );
 ingress:
   enabled: true
