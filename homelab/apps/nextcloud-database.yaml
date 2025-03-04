@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nextcloud-database
+  namespace: argocd
+spec:
+  destination:
+    namespace: nextcloud
+    name: in-cluster
+  project: default
+  source:
+    repoURL: git@github.com:heschlie/gitops.git
+    path: homelab/k8s/nextcloud-database
+    targetRevision: main

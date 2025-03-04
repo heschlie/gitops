@@ -21,3 +21,4 @@ resources:
   - rook-operator.yaml
   - starr-apps.yaml
   - version-checker.yaml
+  - nextcloud-database.yaml
