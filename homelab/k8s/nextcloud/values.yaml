@@ -13,10 +13,13 @@ nextcloud:
       upload_max_filesize=5G
       memory_limit=512M
   configs:
-    overrides.config.php: |-
+    zz-overrides.config.php: |-
       <?php
       $CONFIG = array (
         'check_data_directory_permissions' => false,
+        ‘overwrite.cli.url’ => ‘https://cloud.heschlie.com’,
+        ‘overwriteprotocol’ => ‘https’,
+        ‘overwritehost’ => ‘cloud.heschlie.com’,
       );
 ingress:
   enabled: true
