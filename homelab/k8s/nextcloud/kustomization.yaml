@@ -1,0 +1,21 @@
+kind: Kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+
+namespace: nextcloud
+
+helmCharts:
+  - name: nextcloud
+    releaseName: nextcloud
+    namespace: nextcloud
+    repo: https://nextcloud.github.io/helm/
+    version: 5.2.0
+    valuesFile: values.yaml
+
+patches:
+  # Patch out the data mountPath so we can mount in our NFS.
+  - target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: nextcloud
+    path: nc-dp-patch.yaml

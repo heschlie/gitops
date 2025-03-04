@@ -1,0 +1,66 @@
+image:
+  tag: 27.1.11
+nextcloud:
+  host: cloud.heschlie.com
+  extraVolumes:
+    - name: nfs-data
+      nfs:
+        server: "nfs.k8s"
+        path: /opt/tank1/nextcloud
+  extraVolumeMounts:
+    - name: nfs-data
+      mountPath: /var/www/html/data
+ingress:
+  enabled: true
+  className: nginx
+  tls:
+    - hosts:
+        - cloud.heschlie.com
+      secretName: nextcloud-tls
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-headers: "X-Forwarded-For"
+    nginx.ingress.kubernetes.io/server-snippet: |-
+      server_tokens off;
+      proxy_hide_header X-Powered-By;
+      rewrite ^/.well-known/webfinger /index.php/.well-known/webfinger last;
+      rewrite ^/.well-known/nodeinfo /index.php/.well-known/nodeinfo last;
+      rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
+      rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json;
+      location = /.well-known/carddav {
+        return 301 $scheme://$host/remote.php/dav;
+      }
+      location = /.well-known/caldav {
+        return 301 $scheme://$host/remote.php/dav;
+      }
+      location = /robots.txt {
+        allow all;
+        log_not_found off;
+        access_log off;
+      }
+      location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)/ {
+        deny all;
+      }
+      location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
+        deny all;
+      }
+internalDatabase:
+  enabled: false
+externalDatabase:
+  enabled: true
+  type: postgresql
+  host: nextcloud-db-rw
+  existingSecret:
+    enabled: true
+    secretName: nextcloud-db-app
+    usernameKey: username
+    passwordKey: password
+persistence:
+  enabled: true
+  storageClass: rook-ceph-block
+metrics:
+  enabled: true
+  serviceMonitor:
+    enabled: true
+    namespace: nextcloud
