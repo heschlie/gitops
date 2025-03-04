@@ -8,6 +8,10 @@ nextcloud:
   extraVolumeMounts:
     - name: nfs-data
       mountPath: /var/www/html/data
+  phpConfigs:
+    zz-memory_limit.ini: |-
+      upload_max_filesize=5G
+      memory_limit=512M
   configs:
     overrides.config.php: |-
       <?php
