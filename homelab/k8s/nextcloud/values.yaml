@@ -1,5 +1,3 @@
-image:
-  tag: 28.0.14
 nextcloud:
   host: cloud.heschlie.com
   extraVolumes:
@@ -10,6 +8,12 @@ nextcloud:
   extraVolumeMounts:
     - name: nfs-data
       mountPath: /var/www/html/data
+  configs:
+    overrides.config.php: |-
+      <?php
+      $CONFIG = array (
+        'check_data_directory_permissions' => false,
+      );
 ingress:
   enabled: true
   className: nginx
