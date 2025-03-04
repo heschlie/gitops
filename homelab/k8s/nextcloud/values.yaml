@@ -1,5 +1,5 @@
 image:
-  tag: 27.1.11
+  tag: 28.0.14
 nextcloud:
   host: cloud.heschlie.com
   extraVolumes:
