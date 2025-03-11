@@ -6,13 +6,13 @@ images:
   - name: linuxserver/sabnzbd
     newTag: 4.3.3
   - name: linuxserver/sonarr
-    newTag: 4.0.11
+    newTag: 4.0.13.2932
   - name: linuxserver/radarr
-    newTag: 5.14.0
+    newTag: 5.19.3.9730
   - name: linuxserver/bazarr
-    newTag: 1.4.5
+    newTag: 1.5.1
   - name: linuxserver/lidarr
-    newTag: 2.7.1
+    newTag: 2.9.6.4552
   - name: linuxserver/jackett
     newTag: 0.22.1576
   - name: haugene/transmission-openvpn
