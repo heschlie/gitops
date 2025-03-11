@@ -31,7 +31,7 @@ spec:
     spec:
       containers:
         - name: sabnzbd
-          image: linuxserver/sabnzbd
+          image: lscr.io/linuxserver/sabnzbd
           env:
             - name: TZ
               value: America/Los_Angeles

@@ -32,6 +32,7 @@ spec:
         containers:
           - name: readarr
             image: linuxserver/readarr:develop
+            imagePullPolicy: Always
             ports:
               - containerPort: 8787
                 name: http

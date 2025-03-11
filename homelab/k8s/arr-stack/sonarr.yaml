@@ -31,7 +31,7 @@ spec:
     spec:
       containers:
         - name: sonarr
-          image: linuxserver/sonarr
+          image: lscr.io/linuxserver/sonarr
           ports:
             - containerPort: 8989
               name: http
