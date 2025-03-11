@@ -3,17 +3,17 @@ kind: Kustomization
 namespace: arr
 
 images:
-  - name: linuxserver/sabnzbd
+  - name: lscr.io/linuxserver/sabnzbd
     newTag: 4.4.1
-  - name: linuxserver/sonarr
+  - name: lscr.io/linuxserver/sonarr
     newTag: 4.0.13
-  - name: linuxserver/radarr
+  - name: lscr.io/linuxserver/radarr
     newTag: 5.19.3
-  - name: linuxserver/bazarr
+  - name: lscr.io/linuxserver/bazarr
     newTag: 1.5.1
-  - name: linuxserver/lidarr
+  - name: lscr.io/linuxserver/lidarr
     newTag: 2.9.6
-  - name: linuxserver/jackett
+  - name: lscr.io/linuxserver/jackett
     newTag: 0.22.1576
   - name: haugene/transmission-openvpn
     newTag: 5.3.1
