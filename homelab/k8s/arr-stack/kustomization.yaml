@@ -16,7 +16,7 @@ images:
   - name: lscr.io/linuxserver/jackett
     newTag: 0.22.1576
   - name: haugene/transmission-openvpn
-    newTag: 5.3.1
+    newTag: 5.3.2
   - name: golift/notifiarr
     newTag: 0.8.3
 
