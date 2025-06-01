@@ -34,6 +34,8 @@ spec:
               value: "1000"
             - name: PGID
               value: "1000"
+            - name: DEBUG
+              value: "true"
             - name: TZ
               value: America/Los_Angeles
             - name: CREATE_TUN_DEVICE
