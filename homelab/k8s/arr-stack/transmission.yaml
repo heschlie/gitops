@@ -45,9 +45,7 @@ spec:
             - name: OPENVPN_PROVIDER
               value: "custom"
             - name: OPENVPN_CONFIG
-              value: "/etc/openvpn/custom/us-az-117.protonvpn.udp"
-            - name: MODIFY_CHOSEN_CONFIG
-              value: "false"
+              value: "us-az-117.protonvpn.udp"
             - name: TRANSMISSION_DOWNLOAD_DIR
               value: /starr/torrent/completed
             - name: TRANSMISSION_INCOMPLETE_DIR
@@ -75,8 +73,9 @@ spec:
             path: /opt/tank1/starr/torrent
             server: nfs.k8s
         - name: proton-vpn
-          secret:
-            secretName: proton-ovpn
+          nfs:
+            path: /opt/tank1/starr/torrent/ovpn
+            server: nfs.k8s
 
 ---
 
