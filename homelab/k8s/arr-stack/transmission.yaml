@@ -46,6 +46,8 @@ spec:
               value: "custom"
             - name: OPENVPN_CONFIG
               value: "us-az-117.protonvpn.udp"
+            - name: MODIFY_CHOSEN_CONFIG
+              value: "false"
             - name: TRANSMISSION_DOWNLOAD_DIR
               value: /starr/torrent/completed
             - name: TRANSMISSION_INCOMPLETE_DIR
