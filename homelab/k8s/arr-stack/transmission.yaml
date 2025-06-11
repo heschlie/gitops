@@ -46,6 +46,8 @@ spec:
               value: "false"
             - name: OPENVPN_PROVIDER
               value: "custom"
+            - name: DISABLE_PORT_UPDATER
+              value: "true"
             - name: OPENVPN_CONFIG
               value: "us-ca-31.protonvpn.udp"
             - name: TRANSMISSION_DOWNLOAD_DIR
