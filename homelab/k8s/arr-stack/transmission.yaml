@@ -24,7 +24,10 @@ spec:
               name: http
           livenessProbe:
             exec:
-              command: [ "ping", "-I", "tun0", "-c", "1", "google.com" ]
+              command:
+                - /bin/bash
+                - '-c'
+                - vip=$(curl --silent http://ipinfo.io/ip); ip=$(dig heschlie.com +short); if [ $vip = $ip ]; then exit 1; fi
             failureThreshold: 3
             initialDelaySeconds: 10
             periodSeconds: 10
