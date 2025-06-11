@@ -47,7 +47,7 @@ spec:
             - name: OPENVPN_PROVIDER
               value: "custom"
             - name: OPENVPN_CONFIG
-              value: "us-az-117.protonvpn.udp"
+              value: "us-ca-31.protonvpn.udp"
             - name: TRANSMISSION_DOWNLOAD_DIR
               value: /starr/torrent/completed
             - name: TRANSMISSION_INCOMPLETE_DIR
