@@ -4,17 +4,17 @@ namespace: arr
 
 images:
   - name: lscr.io/linuxserver/sabnzbd
-    newTag: 4.4.1
+    newTag: 4.5.2
   - name: lscr.io/linuxserver/sonarr
-    newTag: 4.0.13
+    newTag: 4.0.15
   - name: lscr.io/linuxserver/radarr
-    newTag: 5.19.3
+    newTag: 5.26.2
   - name: lscr.io/linuxserver/bazarr
-    newTag: 1.5.1
+    newTag: 1.5.2
   - name: lscr.io/linuxserver/lidarr
-    newTag: 2.9.6
+    newTag: 2.12.4
   - name: lscr.io/linuxserver/jackett
-    newTag: 0.22.1576
+    newTag: 0.22.2315
   - name: haugene/transmission-openvpn
     newTag: 5.3.2
   - name: golift/notifiarr
