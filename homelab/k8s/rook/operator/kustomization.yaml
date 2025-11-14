@@ -6,3 +6,4 @@ resources:
   - common.yaml
   - operator.yaml
   - monitoring-rbac.yaml
+  - csi-operator.yaml
