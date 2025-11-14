@@ -7,7 +7,7 @@ resources:
 patches:
   - patch: |-
       - op: add
-        path: /metadata/labels/istio.io/dataplane-mode
+        path: "/metadata/labels/istio.io~1dataplane-mode"
         value: ambient
     target:
       version: v1
