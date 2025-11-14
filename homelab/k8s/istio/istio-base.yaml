@@ -13,6 +13,6 @@ spec:
   source:
     repoURL: https://istio-release.storage.googleapis.com/charts
     chart: base
-    targetRevision: 1.26.6
+    targetRevision: 1.28.0
     helm:
       releaseName: istio-base
