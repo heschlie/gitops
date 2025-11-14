@@ -2,13 +2,13 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/refs/heads/release-1.24/releases/cnpg-1.24.4.yaml
+  - https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/refs/heads/release-1.25/releases/cnpg-1.25.4.yaml
 
 patches:
   - patch: |-
       - op: add
-        path: "/metadata/labels/istio.io~1dataplane-mode"
-        value: ambient
+        path: /metadata/labels/istio-injection
+        value: enabled
     target:
       version: v1
       kind: Namespace
