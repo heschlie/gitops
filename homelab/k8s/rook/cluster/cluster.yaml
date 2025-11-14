@@ -223,7 +223,15 @@ spec:
     mgr: system-cluster-critical
     #crashcollector: rook-ceph-crashcollector-priority-class
   storage: # cluster level storage configuration and selection
-    useAllNodes: true
+    useAllNodes: false
+    nodes:
+      - k8s-node-0
+      - k8s-node-1
+      - k8s-node-2
+      - k8s-node-3
+      - k8s-node-4
+      - k8s-node-5
+      - k8s-node-6
     useAllDevices: true
     deviceFilter: nvme
     config:
