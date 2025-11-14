@@ -18,3 +18,5 @@ spec:
       releaseName: istio-cni
       valuesObject:
         profile: ambient
+        ambient:
+          enabled: "true"

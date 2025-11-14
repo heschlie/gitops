@@ -18,3 +18,5 @@ spec:
       releaseName: istiod
       valuesObject:
         profile: ambient
+        ambient:
+          enabled: "true"
