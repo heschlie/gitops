@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: anime-config
+  name: prowlarr-config
 spec:
   accessModes:
     - ReadWriteOnce
@@ -16,24 +16,24 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: anime
+  name: prowlarr
 spec:
   replicas: 1
   strategy:
     type: Recreate
   selector:
     matchLabels:
-      app: anime
+      app: prowlarr
   template:
     metadata:
       labels:
-        app: anime
+        app: prowlarr
     spec:
       containers:
-        - name: anime
-          image: lscr.io/linuxserver/sonarr
+        - name: prowlarr
+          image: lscr.io/linuxserver/prowlarr:2.1.5.5216-ls131
           ports:
-            - containerPort: 8989
+            - containerPort: 9696
               name: http
           env:
             - name: PUID
@@ -45,25 +45,19 @@ spec:
           volumeMounts:
             - mountPath: /config
               name: config
-            - mountPath: /starr
-              name: downloads
       volumes:
         - name: config
           persistentVolumeClaim:
-            claimName: anime-config
-        - name: downloads
-          nfs:
-            path: /opt/tank1/starr
-            server: nfs.k8s
+            claimName: prowlarr-config
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: anime
+  name: prowlarr
 spec:
   selector:
-    app: anime
+    app: prowlarr
   ports:
     - port: 80
       name: http
@@ -74,16 +68,16 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: anime
+  name: prowlarr
 spec:
   ingressClassName: nginx
   rules:
-    - host: anime.k8s
+    - host: prowlarr.k8s
       http:
         paths:
           - backend:
               service:
-                name: anime
+                name: prowlarr
                 port:
                   name: http
             pathType: Prefix

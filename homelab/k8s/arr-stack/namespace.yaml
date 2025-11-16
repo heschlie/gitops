@@ -3,4 +3,4 @@ kind: Namespace
 metadata:
   name: arr
   labels:
-    istio.io/dataplane-mode: ambient
+    istio-injection: enabled
