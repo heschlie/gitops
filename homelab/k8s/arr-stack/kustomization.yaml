@@ -4,15 +4,15 @@ namespace: arr
 
 images:
   - name: lscr.io/linuxserver/sabnzbd
-    newTag: 4.5.2
+    newTag: 4.5.5-ls236
   - name: lscr.io/linuxserver/sonarr
-    newTag: 4.0.15
+    newTag: 4.0.16.2944-ls297
   - name: lscr.io/linuxserver/radarr
-    newTag: 5.26.2
+    newTag: 6.0.4.10291-ls287
   - name: lscr.io/linuxserver/bazarr
-    newTag: 1.5.2
+    newTag: v1.5.3-ls324
   - name: lscr.io/linuxserver/lidarr
-    newTag: 2.12.4
+    newTag: 3.0.1.4866-ls10
   - name: lscr.io/linuxserver/jackett
     newTag: 0.22.2315
   - name: lscr.io/linuxserver/prowlarr
@@ -34,8 +34,6 @@ resources:
   - bazarr.yaml
   - bazarr-anime.yaml
   - lidarr.yaml
-  - readarr.yaml
-  - audiobooks.yaml
   - prowlarr.yaml
 
 patches:
