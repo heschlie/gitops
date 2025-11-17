@@ -13,3 +13,17 @@ spec:
   storage:
     storageClass: rook-ceph-block
     size: 20Gi
+
+  backup:
+    barmanObjectStore:
+      destinationPath: "s3://cnpg-backups/nextcloud"
+      endpointURL: "http://stormwind.lan:3900"
+      s3Credentials:
+        accessKeyId:
+          key: garage-creds
+          name: ACCESS_KEY
+        secretAccessKey:
+          key: garage-creds
+          name: SECRET_ACCESS_KEY
+      wal:
+        compression: gzip
