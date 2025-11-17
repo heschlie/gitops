@@ -20,7 +20,7 @@ images:
   - name: haugene/transmission-openvpn
     newTag: 5.3.2
   - name: golift/notifiarr
-    newTag: 0.8.3
+    newTag: 0.9.1
 
 resources:
   - namespace.yaml
