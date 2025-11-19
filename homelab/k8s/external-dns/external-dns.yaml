@@ -10,7 +10,7 @@ metadata:
   name: external-dns
 rules:
   - apiGroups: [""]
-    resources: ["services","pods", "namespaces"]
+    resources: ["services","pods","namespaces","endpoints"]
     verbs: ["get","watch","list"]
   - apiGroups: [ "discovery.k8s.io" ]
     resources: [ "endpointslices" ]
