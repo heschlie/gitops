@@ -1,0 +1,19 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: starr
+spec:
+  gatewayClassName: istio
+  listeners:
+    - name: starr
+      port: 80
+      protocol: HTTP
+      allowedRoutes:
+        namespaces:
+          from: Same
+    - name: starr-https
+      port: 443
+      protocol: HTTP
+      allowedRoutes:
+        namespaces:
+          from: Same

@@ -21,9 +21,12 @@ images:
     newTag: 5.3.2
   - name: golift/notifiarr
     newTag: 0.9.1
+  - name: lscr.io/linuxserver/lazylibrarian
+    newTag: 07aba984-ls220
 
 resources:
   - namespace.yaml
+  - gateway.yaml
   - sabnzbd.yaml
   - transmission.yaml
   - jackett.yaml
@@ -35,6 +38,7 @@ resources:
   - bazarr-anime.yaml
   - lidarr.yaml
   - prowlarr.yaml
+  - lazylibrarian.yaml
 
 patches:
   - target:

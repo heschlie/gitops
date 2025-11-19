@@ -1,0 +1,86 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: lazylibrarian-config
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: rook-ceph-block
+  volumeMode: Filesystem
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lazylibrarian
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: lazylibrarian
+  template:
+    metadata:
+      labels:
+        app: lazylibrarian
+    spec:
+      containers:
+        - name: lazylibrarian
+          image: lscr.io/linuxserver/lazylibrarian
+          ports:
+            - containerPort: 5299
+              name: http
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: TZ
+              value: America/Los_Angeles
+          volumeMounts:
+            - mountPath: /config
+              name: config
+            - mountPath: /downloads
+              name: downloads
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: lazylibrarian-config
+        - name: downloads
+          nfs:
+            path: /opt/tank1/starr
+            server: nfs.k8s
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: lazylibrarian
+spec:
+  selector:
+    app: lazylibrarian
+  ports:
+    - port: 80
+      name: http
+      targetPort: http
+
+---
+
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: lazylibrarian
+spec:
+  hostnames:
+  - lazylibrarian.k8s
+  parentRefs:
+    - name: starr
+  rules:
+    - backendRefs:
+        - name: lazylibrarian
+          port: 80
