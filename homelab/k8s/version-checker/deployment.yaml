@@ -22,25 +22,12 @@ spec:
     spec:
       serviceAccountName: version-checker
       containers:
-        - image: quay.io/jetstack/version-checker:v0.5.5
-          resources:
-            requests:
-              memory: 32M
-            limits:
-              memory: 256M
-          env:
-            - name: GOMEMLIMIT
-              valueFrom:
-                resourceFieldRef:
-                  divisor: "0"
-                  resource: limits.memory
+        - image: quay.io/jetstack/version-checker:v0.10.0
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
           name: version-checker
           command: ["version-checker"]
-          args:
-            - --test-all-containers
           livenessProbe:
             httpGet:
               path: /readyz
