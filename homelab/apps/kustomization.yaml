@@ -12,8 +12,6 @@ resources:
   - home-assistant-forward.yaml
   - ingress-nginx.yaml
   - jellyfin-forward.yaml
-  - lemmy-database.yaml
-  - lemmy.yaml
   - metrics-server.yaml
   - navidrome.yaml
   - prometheus.yaml
