@@ -11,7 +11,7 @@ helmCharts:
     releaseName: cert-manager
     namespace: cert-manager
     repo: https://charts.jetstack.io
-    version: v1.18.2
+    version: v1.19.1
     valuesInline:
       podAnnotations:
         match-regex.version-checker.io/cert-manager-controller: 'v(\d+)\.(\d+)\.(\d+)'
