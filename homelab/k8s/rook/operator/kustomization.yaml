@@ -7,3 +7,4 @@ resources:
   - operator.yaml
   - monitoring-rbac.yaml
   - csi-operator.yaml
+  - driver.yaml

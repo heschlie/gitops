@@ -1,0 +1,40 @@
+apiVersion: csi.ceph.io/v1
+kind: Driver
+metadata:
+  name: rook.rbd.csi.ceph.com
+  namespace: rook-ceph
+spec:
+  cephFsClientType: kernel
+  clusterName: rook-ceph
+  controllerPlugin:
+    affinity:
+      nodeAffinity: {}
+    hostNetwork: false
+    imagePullPolicy: ""
+    priorityClassName: system-node-critical
+    replicas: 2
+    resources: {}
+  deployCsiAddons: true
+  enableMetadata: true
+  fsGroupPolicy: File
+  generateOMapInfo: false
+  imageSet:
+    name: rook-csi-operator-image-set-configmap
+  log: {}
+  nodePlugin:
+    affinity:
+      nodeAffinity: {}
+    enableSeLinuxHostMount: false
+    imagePullPolicy: ""
+    kubeletDirPath: /var/lib/kubelet
+    priorityClassName: system-cluster-critical
+    resources: {}
+    tolerations:
+      - effect: NoSchedule
+        key: node-role.kubernetes.io/control-plane
+        operator: Exists
+      - effect: NoExecute
+        key: node-role.kubernetes.io/etcd
+        operator: Exists
+    updateStrategy:
+      type: RollingUpdate
