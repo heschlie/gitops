@@ -36,6 +36,8 @@ spec:
             - containerPort: 9705
               name: http
           env:
+            - name: HUNTARR_PORT
+              value: "9705"
             - name: PUID
               value: "1000"
             - name: PGID
