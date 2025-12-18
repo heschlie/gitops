@@ -25,6 +25,8 @@ images:
     newTag: 07aba984-ls220
   - name: huntarr/huntarr
     newTag: 8.2.10
+  - name: ghcr.io/cleanuparr/cleanuparr
+    newTag: 2.4.7
 
 resources:
   - namespace.yaml
@@ -42,6 +44,7 @@ resources:
   - prowlarr.yaml
   - lazylibrarian.yaml
   - huntarr.yaml
+  - cleanuparr.yaml
 
 patches:
   - target:

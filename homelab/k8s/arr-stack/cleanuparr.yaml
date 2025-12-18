@@ -1,0 +1,85 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: cleanuparr-config
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: rook-ceph-block
+  volumeMode: Filesystem
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cleanuparr
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: cleanuparr
+  template:
+    metadata:
+      labels:
+        app: cleanuparr
+    spec:
+      containers:
+        - name: cleanuparr
+          image: ghcr.io/cleanuparr/cleanuparr
+          ports:
+            - containerPort: 11011
+              name: http
+          env:
+            - name: PORT
+              value: "11011"
+            - name: BASE_PATH
+              value: ""
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: TZ
+              value: America/Los_Angeles
+          volumeMounts:
+            - mountPath: /config
+              name: config
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: cleanuparr-config
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: cleanuparr
+spec:
+  selector:
+    app: cleanuparr
+  ports:
+    - port: 80
+      name: http
+      targetPort: http
+
+---
+
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: cleanuparr
+spec:
+  hostnames:
+    - cleanuparr.k8s
+  parentRefs:
+    - name: starr
+  rules:
+    - backendRefs:
+        - name: cleanuparr
+          port: 80
