@@ -23,6 +23,8 @@ images:
     newTag: 0.9.1
   - name: lscr.io/linuxserver/lazylibrarian
     newTag: 07aba984-ls220
+  - name: huntarr/huntarr
+    newTag: 8.2.10
 
 resources:
   - namespace.yaml
@@ -39,6 +41,7 @@ resources:
   - lidarr.yaml
   - prowlarr.yaml
   - lazylibrarian.yaml
+  - huntarr.yaml
 
 patches:
   - target:
