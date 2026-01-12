@@ -35,7 +35,7 @@ spec:
         - name: audiobookshelf
           image: ghcr.io/advplyr/audiobookshelf
           ports:
-            - containerPort: 13378
+            - containerPort: 80
               name: http
           env:
             - name: PUID
