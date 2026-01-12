@@ -7,4 +7,5 @@ images:
     newTag: 2.32.1
 
 resources:
+  - namespace.yaml
   - deployment.yaml
