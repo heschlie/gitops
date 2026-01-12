@@ -80,16 +80,20 @@ spec:
 
 ---
 
-apiVersion: gateway.networking.k8s.io/v1
-kind: HTTPRoute
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
   name: audiobookshelf
 spec:
-  hostnames:
-    - audiobooks.k8s
-  parentRefs:
-    - name: starr
+  ingressClassName: nginx
   rules:
-    - backendRefs:
-        - name: audiobookshelf
-          port: 80
+    - host: audiobooks.k8s
+      http:
+        paths:
+          - backend:
+              service:
+                name: audiobookshelf
+                port:
+                  name: http
+            pathType: Prefix
+            path: /
