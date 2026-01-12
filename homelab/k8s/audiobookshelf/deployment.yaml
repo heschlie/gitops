@@ -29,9 +29,6 @@ spec:
       labels:
         app: audiobookshelf
     spec:
-      securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
       containers:
         - name: audiobookshelf
           image: ghcr.io/advplyr/audiobookshelf
