@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: audiobookshelf
+  namespace: argocd
+spec:
+  destination:
+    namespace: audiobookshelf
+    name: in-cluster
+  project: default
+  source:
+    repoURL: git@github.com:heschlie/gitops.git
+    path: homelab/k8s/audiobookshelf
+    targetRevision: main

@@ -1,0 +1,93 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: audiobookshelf-config
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: rook-ceph-block
+  volumeMode: Filesystem
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: audiobookshelf
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: audiobookshelf
+  template:
+    metadata:
+      labels:
+        app: audiobookshelf
+    spec:
+      containers:
+        - name: audiobookshelf
+          image: ghcr.io/advplyr/audiobookshelf
+          ports:
+            - containerPort: 13378
+              name: http
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: TZ
+              value: America/Los_Angeles
+          volumeMounts:
+            - mountPath: /config
+              name: config
+            - mountPath: /metadata
+              name: metadata
+            - mountPath: /audiobooks
+              name: audiobooks
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: audiobookshelf-config
+        - name: metadata
+          nfs:
+            path: /opt/tank1/ABS/metadata
+            server: nfs.k8s
+        - name: audiobooks
+          nfs:
+            path: /opt/tank1/starr/media/audiobooks
+            server: nfs.k8s
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: audiobookshelf
+spec:
+  selector:
+    app: audiobookshelf
+  ports:
+    - port: 80
+      name: http
+      targetPort: http
+
+---
+
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: audiobookshelf
+spec:
+  hostnames:
+    - audiobooks.k8s
+  parentRefs:
+    - name: starr
+  rules:
+    - backendRefs:
+        - name: audiobookshelf
+          port: 80
