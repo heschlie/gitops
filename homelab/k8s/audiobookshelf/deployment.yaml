@@ -84,6 +84,8 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: audiobookshelf
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
 spec:
   ingressClassName: nginx
   rules:
@@ -97,3 +99,17 @@ spec:
                   name: http
             pathType: Prefix
             path: /
+    - host: audiobooks.schlunker.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: audiobookshelf
+                port:
+                  name: http
+            pathType: Prefix
+            path: /
+  tls:
+    - hosts:
+        - audiobooks.schlunker.com
+      secretName: audiobooks-tls
