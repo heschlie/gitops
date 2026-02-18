@@ -11,7 +11,7 @@ nextcloud:
   phpConfigs:
     zz-memory_limit.ini: |-
       upload_max_filesize=5G
-      memory_limit=512M
+      memory_limit=2048M
   configs:
     zz-overrides.config.php: |-
       <?php
