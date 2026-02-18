@@ -1,6 +1,16 @@
-- op: replace
-  path: /spec/template/spec/containers/name=nextcloud/volumeMounts/name=nextcloud-main/mountPath
-  value: /foo
-- op: replace
-  path: /spec/template/spec/containers/name=nextcloud-cron/volumeMounts/name=nextcloud-main/mountPath
-  value: /foo
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nextcloud
+spec:
+  template:
+    spec:
+      containers:
+        - name: nextcloud
+          volumeMounts:
+            - mountPath: /var/www/html/data
+              $patch: delete
+        - name: nextcloud-cron
+          volumeMounts:
+            - mountPath: /var/www/html/data
+              $patch: delete
