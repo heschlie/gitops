@@ -1,3 +1,6 @@
 - op: replace
-  path: /spec/template/spec/containers/0/volumeMounts/2/mountPath
+  path: /spec/template/spec/containers/name=nextcloud/volumeMounts/name=nextcloud-name/mountPath
+  value: /foo
+- op: replace
+  path: /spec/template/spec/containers/name=nextcloud-cron/volumeMounts/name=nextcloud-name/mountPath
   value: /foo
