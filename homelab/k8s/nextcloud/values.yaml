@@ -76,3 +76,5 @@ metrics:
   serviceMonitor:
     enabled: true
     namespace: nextcloud
+cronjob:
+  enabled: true
