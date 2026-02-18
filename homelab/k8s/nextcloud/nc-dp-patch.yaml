@@ -9,8 +9,8 @@ spec:
         - name: nextcloud
           volumeMounts:
             - mountPath: /var/www/html/data
-              $patch: delete
+              name: nfs-data
         - name: nextcloud-cron
           volumeMounts:
             - mountPath: /var/www/html/data
-              $patch: delete
+              name: nfs-data
