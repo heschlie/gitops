@@ -4,29 +4,27 @@ namespace: arr
 
 images:
   - name: lscr.io/linuxserver/sabnzbd
-    newTag: 4.5.5-ls236
+    newTag: 5.0.4-ls258
   - name: lscr.io/linuxserver/sonarr
-    newTag: 4.0.16.2944-ls297
+    newTag: 4.0.17.2952-ls313
   - name: lscr.io/linuxserver/radarr
-    newTag: 6.0.4.10291-ls287
+    newTag: 6.2.1.10461-ls305
   - name: lscr.io/linuxserver/bazarr
-    newTag: v1.5.3-ls324
+    newTag: v1.5.6-ls350
   - name: lscr.io/linuxserver/lidarr
-    newTag: 3.0.1.4866-ls10
+    newTag: 3.1.0.4875-ls30
   - name: lscr.io/linuxserver/jackett
-    newTag: 0.22.2315
+    newTag: v0.24.2045-ls428
   - name: lscr.io/linuxserver/prowlarr
-    newTag: 2.1.5.5216-ls131
+    newTag: 2.4.0.5397-ls149
   - name: haugene/transmission-openvpn
-    newTag: 5.3.2
+    newTag: 5.4.1
   - name: golift/notifiarr
-    newTag: 0.9.1
+    newTag: 0.9.5
   - name: lscr.io/linuxserver/lazylibrarian
-    newTag: 07aba984-ls220
-  - name: huntarr/huntarr
-    newTag: 8.2.10
+    newTag: d58c5eab-ls299
   - name: ghcr.io/cleanuparr/cleanuparr
-    newTag: 2.4.7
+    newTag: 2.9.13
 
 resources:
   - namespace.yaml
@@ -43,7 +41,6 @@ resources:
   - lidarr.yaml
   - prowlarr.yaml
   - lazylibrarian.yaml
-  - huntarr.yaml
   - cleanuparr.yaml
 
 patches:
